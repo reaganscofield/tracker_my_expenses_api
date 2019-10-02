@@ -63,3 +63,22 @@ class CountByTitleYearlyView(generics.ListAPIView):
         title_yearly_objects = Expenses.objects.count_by_title_yearly()
         serializer = TitleYearlySerilizers(title_yearly_objects, many=True)
         return Response(serializer.data)
+
+
+class DataRepports(generics.ListAPIView):
+
+    def list(self, request):
+        combiningData = {
+            "daily": Expenses.objects.count_per_day(),
+            "weekly":  Expenses.objects.count_per_week(),
+            "monthly":  Expenses.objects.count_per_month(),
+            "yearly": Expenses.objects.count_per_year(),
+            "title":  Expenses.objects.count_by_title(),
+            "title_monthly": Expenses.objects.count_by_title_monthly(),
+            "title_yearly": Expenses.objects.count_by_title_yearly(),
+        }
+        return Response(combiningData)
+
+
+
+   

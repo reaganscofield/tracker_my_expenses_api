@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'application',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +55,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'tracker_my_expenses.urls'
 AUTH_USER_MODEL = 'application.Users'
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {

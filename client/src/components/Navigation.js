@@ -24,8 +24,8 @@ export default class Navigation extends Component {
           <ul className="navbar-nav mr-auto">
            
           </ul>
-          <div class="form-inline my-2 my-lg-0">
-            <img class="rounded-circle" src={defaultImage} alt="default image" width="45px" />
+          <div className="form-inline my-2 my-lg-0">
+            <img className="rounded-circle" src={defaultImage} alt="default image" width="45px" />
             <ul className="navbar-nav mr-auto">
             <li className="nav-item dropdown">
               <a
@@ -40,14 +40,14 @@ export default class Navigation extends Component {
                 Jhon Does
               </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" href="/">
                   Logout
                 </a>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" href="/">
                   Another action
                 </a>
                 <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" href="/">
                   Something else here
                 </a>
               </div>
@@ -58,12 +58,12 @@ export default class Navigation extends Component {
         </div>
       </nav>
 
-      <div id="mySidenav" class="sidenav">
-        <span> Disabled</span> <a href="javascript:void(0)" class="closebtn" onClick={this.closeSideBar}>&times;</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+      <div id="mySidenav" className="sidenav">
+        <span> Disabled</span> <a href="/" className="closebtn" onClick={this.closeSideBar}>&times;</a>
+        <a href="/">About</a>
+        <a href="/">Services</a>
+        <a href="/">Clients</a>
+        <a href="/">Contact</a>
       </div>
 
       </div>

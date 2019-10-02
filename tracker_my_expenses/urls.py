@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^api/title_count', CountByTitleView.as_view(), name='count-by-title-view'),
     url(r'^api/title_monthly_count', CountByTitleMonthlyView.as_view(), name='count-by-title-monthly-view'),
     url(r'^api/title_yearly_count', CountByTitleYearlyView.as_view(), name='count-by-title-yearly-view'),
+    url(r'^api/expenses_repport', DataRepports.as_view(), name='data-repports'),
 ]
