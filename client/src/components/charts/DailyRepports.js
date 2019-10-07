@@ -12,7 +12,11 @@ export default class DailyRepports extends Component {
     this.state = {
       totals: [],
       labels: [],
-      counts: []
+      counts: [],
+      daily_title_totals: [],
+      daily_title_labels: [],
+      daily_title_counts: [],
+      daily_title_names: [],
     };
   }
 
@@ -30,6 +34,20 @@ export default class DailyRepports extends Component {
                 this.state.totals.push(element.total);
                 this.state.counts.push(element.count);
                 this.forceUpdate();
+              }
+            });
+          }
+
+          const titleDaily = res.data.title_daily;
+          const { daily_title_counts, daily_title_labels, daily_title_totals, daily_title_names } = this.state;
+          console.log('title daily: ', titleDaily);
+          if (titleDaily && typeof titleDaily === "object") {
+            titleDaily.forEach((element) => {
+              if (daily_title_labels.indexOf(moment(element.day).format("dddd, MMMM Do YYYY")) === -1) {
+                daily_title_labels.push(moment(element.day).format("dddd, MMMM Do YYYY"));
+                daily_title_names.push(element.title);
+                daily_title_counts.push(element.count);
+                daily_title_totals.push(element.total);
               }
             });
           }
@@ -139,10 +157,36 @@ export default class DailyRepports extends Component {
     };
 
 
+    let countTotals;
+    if (this.state.counts.length > 0) {
+      countTotals = this.state.counts.reduce((x, y) => {
+        return x + y;
+      });
+    }
+
+    let amountTotals;
+    if (this.state.totals.length > 0) {
+      amountTotals = this.state.totals.reduce((x, y) => {
+        return x + y;
+      });
+    }
+
+    let currency = { format: "%c %v", code: "ZAR" };
+
+
+
 
     return (
       <div>
         <div>
+        {/* <div className="mb-3 mt-3">
+          <div className="d-inline p-2 bg-danger text-white sizeofcount mr-2">
+            Items {countTotals}
+          </div>
+          <div className="d-inline p-2 bg-info text-white sizeofcount">
+            {FormatCurrency(`${amountTotals}`, currency)}
+          </div>
+        </div> */}
           <div className="card mb-4">
             <div className="card-body">
               <div className="row no-gutters">

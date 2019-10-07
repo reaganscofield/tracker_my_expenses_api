@@ -74,8 +74,12 @@ class DataRepports(generics.ListAPIView):
             "monthly":  Expenses.objects.count_per_month(),
             "yearly": Expenses.objects.count_per_year(),
             "title":  Expenses.objects.count_by_title(),
+            "title_daily":  Expenses.objects.count_by_title_daily(),
+            "title_weekly":  Expenses.objects.count_by_title_weekly(),
             "title_monthly": Expenses.objects.count_by_title_monthly(),
             "title_yearly": Expenses.objects.count_by_title_yearly(),
+            "total_amounts": Expenses.objects.total_amounts(),
+            "total_items": Expenses.objects.filter(is_active=True).count(),
         }
         return Response(combiningData)
 

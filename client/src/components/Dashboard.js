@@ -24,7 +24,10 @@ export default class Dashboard extends Component {
       displayWeekly: false,
       displayMonthly: false,
       displayYearly: false,
-      activeButton: "btn-danger"
+      activeButton: "btn-danger",
+
+      totalAmouns: 0,
+      totalItems: 0,
     };
   }
 
@@ -33,23 +36,32 @@ export default class Dashboard extends Component {
       .get("http://127.0.0.1:8000/api/expenses_repports")
       .then(res => {
         if (res.data) {
-          const daily = res.data.daily;
-          if (daily && typeof daily === "object") {
-            daily.forEach(element => {
-              if (
-                this.state.labels.indexOf(
-                  moment(element.daily).format("dddd, MMMM Do YYYY")
-                ) === -1
-              ) {
-                this.state.labels.push(
-                  moment(element.daily).format("dddd, MMMM Do YYYY")
-                );
-                this.state.totals.push(element.total);
-                this.state.counts.push(element.count);
-                this.forceUpdate();
-              }
-            });
-          }
+          const total = res.data;
+          console.log("all ", total)
+          this.setState({
+             totalAmouns: res.data.total_amounts,
+             totalItems: res.data.total_items,
+          });
+
+
+
+
+          // if (daily && typeof daily === "object") {
+          //   daily.forEach(element => {
+          //     if (
+          //       this.state.labels.indexOf(
+          //         moment(element.daily).format("dddd, MMMM Do YYYY")
+          //       ) === -1
+          //     ) {
+          //       this.state.labels.push(
+          //         moment(element.daily).format("dddd, MMMM Do YYYY")
+          //       );
+          //       this.state.totals.push(element.total);
+          //       this.state.counts.push(element.count);
+          //       this.forceUpdate();
+          //     }
+          //   });
+          // }
         }
       })
       .catch(error => {
@@ -190,10 +202,10 @@ export default class Dashboard extends Component {
 
         <div className="mb-3 mt-3">
           <div className="d-inline p-2 bg-danger text-white sizeofcount mr-2">
-            Items {countTotals}
+            Items {this.state.totalItems}
           </div>
           <div className="d-inline p-2 bg-info text-white sizeofcount">
-            {FormatCurrency(`${amountTotals}`, currency)}
+            {FormatCurrency(`${this.state.totalAmouns}`, currency)}
           </div>
         </div>
         {this.state.displayDaily ? (

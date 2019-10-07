@@ -54,6 +54,24 @@ class Manager(models.Manager):
                 .annotate(total = Sum(Cast('amount', FloatField())) )
                 .values('count', 'total', 'title').order_by()
         )
+
+    def count_by_title_daily(self):
+            return (
+            Expenses.objects
+                .annotate(day=TruncDay('created_at')).values('day')
+                .annotate(count=Count('title'))
+                .annotate(total = Sum(Cast('amount', FloatField())) )
+                .values('day', 'count', 'total', 'title').order_by()
+        )
+
+    def count_by_title_weekly(self):
+                return (
+            Expenses.objects
+                .annotate(week=TruncWeek('created_at')).values('week')
+                .annotate(count=Count('title'))
+                .annotate(total = Sum(Cast('amount', FloatField())) )
+                .values('week', 'count', 'total', 'title').order_by()
+        )
     
     def count_by_title_monthly(self):
             return (
@@ -71,6 +89,13 @@ class Manager(models.Manager):
                 .annotate(count=Count('title'))
                 .annotate(total = Sum(Cast('amount', FloatField())) )
                 .values('year', 'count', 'total', 'title').order_by()
+        )
+
+    def total_amounts(self):
+            return (
+            Expenses.objects
+                .filter(is_active=True)
+                .aggregate(Sum('amount'))['amount__sum']
         )
 
 
